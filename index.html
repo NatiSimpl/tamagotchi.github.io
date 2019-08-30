@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TAMAGOTCHI HORUSPOCUS</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="loading-bar.css" />
+    <script type="text/javascript" src="loading-bar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>
+            <p><i><span id="datetime"></span></i></p>
+        </h1>
+        <div class="d-flex justify-content-around"><button class="btn btn-warning" type="button" onclick="playGame();"
+                data-dismiss="toast">Play Game</button></div>
+        </div>
+    </header>
+    <div class="container-fluid d-flex justify-content-around">
+        <div class="row">
+            <div class="col-sm d-flex flex-column justify-content-center">
+                <div class="d-flex justify-content-center">Energy</div>
+                <div class="d-flex justify-content-center">
+                    <div class="ldBar label-center" id="feedbar" data-preset="bubble" data-pattern-size="150"
+                        data-value="100"></div>
+                </div>
+                <div class="d-flex justify-content-center"><button class="btn btn-success" type="button"
+                        onclick="resetFeed();">Eat</button></div>
+            </div>
+
+            <div class="col-sm d-flex flex-column justify-content-center">
+                <div class="d-flex justify-content-center">Alertness</div>
+                <div class="d-flex justify-content-center">
+                    <div class="ldBar label-center" id="sleepbar" data-preset="bubble" data-pattern-size="150"
+                        data-value="100"></div>
+                </div>
+                <div class="d-flex justify-content-center"><button class="btn btn-danger" type="button"
+                        onclick="resetSleep();">Sleep</button></div>
+            </div>
+
+            <div class="col-sm d-flex flex-column justify-content-center">
+                <div class="d-flex justify-content-center">Cleanliness</div>
+                <div class="d-flex justify-content-center">
+                    <div class="ldBar label-center" id="bathbar" data-preset="bubble" data-pattern-size="150"
+                        data-value="100"></div>
+                </div>
+                <div class="d-flex justify-content-center"><button class="btn btn-warning" type="button"
+                        onclick="resetBath();">Bath</button></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Flexbox container for aligning the toasts -->
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-centerß align-items-center"
+        style="min-height: 200px;">
+        <!-- TOASTS -->
+        <!-- Feed Toast -->
+        <div class="toast" id="toastfeed" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+            <div class="toast-header">
+                <img src="food.png" width=40 class="rounded mr-2" alt="food">
+                <strong class="mr-auto">Faim</strong>
+                <small></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="toast-body">
+                I need to eat
+                <div class="d-flex justify-content-center flex-row bd-highlight">
+                    <div id="myProgress">
+                        <div id="toastfeedbar">100%</div>
+                    </div>
+                    <div class="d-flex justify-content-center "><button class="btn btn-success" type="button"
+                            onclick="resetFeed();" data-dismiss="toast">Feed</button></div>
+                </div>
+            </div>
+        </div>
+        <!-- Sleep Toast -->
+        <div class="toast" id="toastsleep" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+            <div class="toast-header">
+                <img src="/home/ramirez/Bureau/CodigosGeneral/TamagotchiFinal/hotel.png" width=40 class="rounded mr-2"
+                    alt="bed">
+                <strong class="mr-auto">Sommeil</strong>
+                <small></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="toast-body">
+                I need a nap...
+                <div class="d-flex justify-content-center flex-row bd-highlight">
+                    <div id="myProgress">
+                        <div id="toastsleepbar">100%</div>
+                    </div>
+                    <div class="d-flex justify-content-center "><button class="btn btn-danger" type="button"
+                            onclick="resetSleep();" data-dismiss="toast">Sleep</button></div>
+                </div>
+            </div>
+        </div>
+        <!-- Bath Toast -->
+        <div class="toast" id="toastbath" role="alert" aria-live="assertive" aria-atomic="true" data-delay="10000">
+            <div class="toast-header">
+                <img src="/home/ramirez/Bureau/CodigosGeneral/TamagotchiFinal/assets/bathtub.jpg" width=40
+                    class="rounded mr-2" alt="bathtub">
+                <strong class="mr-auto">Bain</strong>
+                <small></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="toast-body">
+                I'm durty!!
+                <div class="d-flex justify-content-center flex-row bd-highlight">
+                    <div id="myProgress">
+                        <div id="toastbathbar">100%</div>
+                    </div>
+                    <div class="d-flex justify-content-center "><button class="btn btn-warning" type="button"
+                            onclick="resetBath();" data-dismiss="toast">Bath</button></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Game Over Toast -->
+    <div class="form-group">
+            <label for="formGroupExampleInput">Type in: energy, alertness or cleanliness </label>
+            <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+        </div>
+    
+    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center"
+        style="min-height: 200px;">
+        <div class="toast" id="gameover" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+            <div class="toast-header">
+                <img src="/home/ramirez/Bureau/CodigosGeneral/TamagotchiFinal/assets/skull.png" width=30
+                    class="rounded mr-2" alt="skull">
+                <strong class="mr-auto">laMuerte</strong>
+                <small></small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Me dejaste morir....
+                <div class="d-flex justify-content-end "><button class="btn-primary" type="button" onclick="revive();"
+                        data-dismiss="toast">Revive</button></div>
+            </div>
+        </div>
+    </div>
+
+   
+  
+
+    <script src="javascript.js"></script>
+</body>
+
+</html>
